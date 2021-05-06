@@ -27,3 +27,14 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+<!-- 新项目 -->
+
+<!-- 1.划分目录结构 -->
+
+
+<!-- 2.引入两个CSS文件 -->
+
+
+<!-- 3.vue.config.js和editorconfig -->
