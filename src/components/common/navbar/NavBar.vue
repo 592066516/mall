@@ -23,9 +23,11 @@
 
   .left, .right {
     width: 60px;
+    /* background: red; */
   }
 
   .center {
     flex: 1;
+    /* background: blue; */
   }
 </style>

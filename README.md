@@ -41,3 +41,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 <!-- 4.tabbar引入和项目模块划分 路由映射 -->
+
+
+<!-- 5.首页导航栏的封装和使用 -->
