@@ -44,3 +44,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 <!-- 5.首页导航栏的封装和使用 -->
+
+
+<!-- 5.请求首页的多个数据 -->
+
+
+<!-- 6.轮播图的展示 -->
