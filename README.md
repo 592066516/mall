@@ -51,4 +51,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 <!-- 6.轮播图的展示 -->
 
-<!-- 7. -->
+<!-- 7.推荐信息的展示 -->
