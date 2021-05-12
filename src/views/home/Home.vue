@@ -7,7 +7,7 @@
     <HomeSwiper :banners="banners"></HomeSwiper>
     <HomeRecommendView :recommends="recommends"></HomeRecommendView>
     <FeatureView></FeatureView>
-    <TabControl :titles="['流行','新款','精选']"></TabControl>
+    <TabControl class="tab-control" :titles="['流行','新款','精选']"></TabControl>
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -114,7 +114,6 @@
 </template>
 
 <script>
-
 import HomeSwiper from "./childComps/HomeSwiper";
 import HomeRecommendView from "./childComps/HomeRecommendView";
 // import FeatureView from '@/views/home/childComps/FeatureView'
@@ -122,34 +121,53 @@ import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "components/common/navbar/NavBar";
 // import TabControl from '@/components/content/tabControl/TabControl'
-import TabControl from 'components/content/tabControl/TabControl'
+import TabControl from "components/content/tabControl/TabControl";
 
-import { getHomeMultidata } from "network/home";
+import { getHomeMultidata, getHomeGoods } from "network/home";
 
 export default {
   name: "Home",
   components: {
-        HomeSwiper,
+    HomeSwiper,
     HomeRecommendView,
     FeatureView,
 
     NavBar,
-    TabControl,
-
-
+    TabControl
   },
   data() {
     return {
       banners: [],
-      recommends: []
+      recommends: [],
+      goods: {
+        pop: { page: 0, list: [] },
+        news: { page: 0, list: [] },
+        seil: { page: 0, list: [] }
+      }
     };
   },
   created() {
-    // 请求多个数据
-    getHomeMultidata().then(res => {
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    });
+    // 1.请求多个数据
+    this.getHomeMultidata();
+    // 2.请求商品数据
+    this.getHomeGoods('pop');
+    this.getHomeGoods('news');
+    this.getHomeGoods('seil');
+  },
+  methods: {
+    getHomeMultidata() {
+      getHomeMultidata().then(res => {
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      });
+    },
+    getHomeGoods(type) {
+      const page = this.goods[type].page +1
+      getHomeGoods(type, page).then(res => {
+        this.goods[type].list.push(...res.data.list);
+        this.goods[type].page+=1
+      });
+    }
   }
 };
 </script>
@@ -161,11 +179,14 @@ export default {
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
-
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 9;
+}
+.tab-control {
+  position: sticky;
+  top: 44px;
 }
 </style>
