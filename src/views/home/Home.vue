@@ -8,6 +8,8 @@
     <HomeRecommendView :recommends="recommends"></HomeRecommendView>
     <FeatureView></FeatureView>
     <TabControl class="tab-control" :titles="['流行','新款','精选']"></TabControl>
+
+    <GoodsList :goods="goods['pop'].list"></GoodsList>
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -116,29 +118,30 @@
 <script>
 import HomeSwiper from "./childComps/HomeSwiper";
 import HomeRecommendView from "./childComps/HomeRecommendView";
-// import FeatureView from '@/views/home/childComps/FeatureView'
 import FeatureView from "./childComps/FeatureView";
 
 import NavBar from "components/common/navbar/NavBar";
-// import TabControl from '@/components/content/tabControl/TabControl'
 import TabControl from "components/content/tabControl/TabControl";
+import GoodsList from "components/content/goods/GoodsList";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
 export default {
   name: "Home",
   components: {
+    NavBar,
+    TabControl,
+
     HomeSwiper,
     HomeRecommendView,
     FeatureView,
-
-    NavBar,
-    TabControl
+    GoodsList
   },
   data() {
     return {
       banners: [],
       recommends: [],
+      // 自定义Goods商品数据
       goods: {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
@@ -164,7 +167,7 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then(res => {
-        this.goods[type].list.push(...res.data.list)
+        this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
     }
