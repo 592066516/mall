@@ -28,10 +28,11 @@ export default {
       currentIndex: 0
     };
   },
-  methods:{
-      itemClcik(index){
-          this.currentIndex = index
-      }
+  methods: {
+    itemClcik(index) {
+      this.currentIndex = index;
+      this.$emit('tabClick',index)
+    }
   }
 };
 </script>
@@ -40,6 +41,7 @@ export default {
   display: flex;
   text-align: center;
   background-color: #fff;
+  z-index: 9;
 }
 .tab-control-item {
   flex: 1;
@@ -48,8 +50,9 @@ export default {
   font-size: 15px;
 }
 .tab-control-item span {
-    padding: 5px;
+  padding: 5px;
 }
+/*  动态绑定class */
 .active {
   color: var(--color-high-text);
 }

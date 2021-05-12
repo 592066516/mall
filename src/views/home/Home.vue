@@ -7,9 +7,9 @@
     <HomeSwiper :banners="banners"></HomeSwiper>
     <HomeRecommendView :recommends="recommends"></HomeRecommendView>
     <FeatureView></FeatureView>
-    <TabControl class="tab-control" :titles="['流行','新款','精选']"></TabControl>
+    <TabControl class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></TabControl>
 
-    <GoodsList :goods="goods['pop'].list"></GoodsList>
+    <GoodsList :goods="showGoods"></GoodsList>
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -146,8 +146,15 @@ export default {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         seil: { page: 0, list: [] }
-      }
+      },
+      currentType: "pop"
     };
+  },
+  // 计算属性
+  computed:{
+    showGoods(){
+      return this.goods[this.currentType].list
+    }
   },
   created() {
     // 1.请求多个数据
@@ -158,6 +165,7 @@ export default {
     this.getHomeGoods("seil");
   },
   methods: {
+    // 网络请求相关的方法
     getHomeMultidata() {
       getHomeMultidata().then(res => {
         this.banners = res.data.banner.list;
@@ -170,6 +178,20 @@ export default {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
       });
+    },
+    // 事件监听相关的方法
+    tabClick(index) {
+      console.log(index);
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "seil";
+      }
     }
   }
 };
