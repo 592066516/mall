@@ -131,7 +131,6 @@ export default {
   components: {
     NavBar,
     TabControl,
-
     HomeSwiper,
     HomeRecommendView,
     FeatureView,
