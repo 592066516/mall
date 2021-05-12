@@ -62,3 +62,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 <!-- 10.保存商品的数据结构设计 -->
 
 <!-- 11.首页数据的请求和保存 -->
+
+<!-- 12.首页商品数据的展示 -->

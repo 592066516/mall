@@ -141,7 +141,7 @@ export default {
       recommends: [],
       goods: {
         pop: { page: 0, list: [] },
-        news: { page: 0, list: [] },
+        new: { page: 0, list: [] },
         seil: { page: 0, list: [] }
       }
     };
@@ -150,9 +150,9 @@ export default {
     // 1.请求多个数据
     this.getHomeMultidata();
     // 2.请求商品数据
-    this.getHomeGoods('pop');
-    this.getHomeGoods('news');
-    this.getHomeGoods('seil');
+    this.getHomeGoods("pop");
+    this.getHomeGoods("new");
+    this.getHomeGoods("seil");
   },
   methods: {
     getHomeMultidata() {
@@ -162,10 +162,10 @@ export default {
       });
     },
     getHomeGoods(type) {
-      const page = this.goods[type].page +1
+      const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then(res => {
-        this.goods[type].list.push(...res.data.list);
-        this.goods[type].page+=1
+        this.goods[type].list.push(...res.data.list)
+        this.goods[type].page += 1;
       });
     }
   }
