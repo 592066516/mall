@@ -3,7 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <Scroll class="content" ref="scroll">
+    <Scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
+      @scroll="contentscroll"
+    >
       <!-- 轮播图组件 -->
       <HomeSwiper :banners="banners"></HomeSwiper>
       <HomeRecommendView :recommends="recommends"></HomeRecommendView>
@@ -12,7 +19,7 @@
 
       <GoodsList :goods="showGoods"></GoodsList>
     </Scroll>
-    <back-top @click.native="backClick"/>
+    <back-top @click.native="backClick" v-show="isShowBackTop"/>
   </div>
 </template>
 
@@ -54,7 +61,8 @@ export default {
         new: { page: 0, list: [] },
         seil: { page: 0, list: [] }
       },
-      currentType: "pop"
+      currentType: "pop",
+      isShowBackTop: true
     };
   },
   // 计算属性
@@ -90,6 +98,16 @@ export default {
       console.log("点击上箭头回到顶部");
       this.$refs.scroll.scroll.scrollTo(0, 0);
     },
+    loadMore() {
+      console.log("上拉加载更多");
+      this.getHomeGoods(this.currentType);
+
+      this.$refs.scroll.scroll.refresh();
+    },
+    contentscroll(position) {
+      // y 负值   加括号转为正值
+      this.isShowBackTop = (-position.y) > 2000;
+    },
     // 网络请求相关的方法
     getHomeMultidata() {
       getHomeMultidata().then(res => {
@@ -102,6 +120,7 @@ export default {
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
+        this.$refs.scroll.finishPullUp();
       });
     }
   }

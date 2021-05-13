@@ -2,7 +2,7 @@
     <!-- <div class="back-top" @click="backclick">
         <img src="~assets/img/common/top.png" alt="">
     </div> -->
-    <div class="back-top" @click="backclick">
+    <div class="back-top">
         <img src="~assets/img/common/top.png" alt="">
     </div>
 </template>
