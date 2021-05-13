@@ -150,9 +150,9 @@ export default {
     };
   },
   // 计算属性
-  computed:{
-    showGoods(){
-      return this.goods[this.currentType].list
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list;
     }
   },
   created() {
