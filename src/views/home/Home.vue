@@ -12,9 +12,12 @@
 
       <GoodsList :goods="showGoods"></GoodsList>
     </Scroll>
-    <back-top @click.native="backclick"/>
+    <back-top @click.native="backClick"/>
   </div>
 </template>
+
+
+
 
 <script>
 import HomeSwiper from "./childComps/HomeSwiper";
@@ -69,22 +72,7 @@ export default {
     this.getHomeGoods("seil");
   },
   methods: {
-    // 网络请求相关的方法
-    getHomeMultidata() {
-      getHomeMultidata().then(res => {
-        this.banners = res.data.banner.list;
-        this.recommends = res.data.recommend.list;
-      });
-    },
-    getHomeGoods(type) {
-      const page = this.goods[type].page + 1;
-      getHomeGoods(type, page).then(res => {
-        this.goods[type].list.push(...res.data.list);
-        this.goods[type].page += 1;
-      });
-    },
     // 事件监听相关的方法
-
     tabClick(index) {
       console.log(index);
       switch (index) {
@@ -98,9 +86,23 @@ export default {
           this.currentType = "seil";
       }
     },
-    backclick() {
+    backClick() {
       console.log("点击上箭头回到顶部");
-      this.$refs.scroll.scroll.scrollTo(0,0)
+      this.$refs.scroll.scroll.scrollTo(0, 0);
+    },
+    // 网络请求相关的方法
+    getHomeMultidata() {
+      getHomeMultidata().then(res => {
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      });
+    },
+    getHomeGoods(type) {
+      const page = this.goods[type].page + 1;
+      getHomeGoods(type, page).then(res => {
+        this.goods[type].list.push(...res.data.list);
+        this.goods[type].page += 1;
+      });
     }
   }
 };
