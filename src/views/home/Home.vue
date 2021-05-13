@@ -3,7 +3,7 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <Scroll class="content">
+    <Scroll class="content" ref="scroll">
       <!-- 轮播图组件 -->
       <HomeSwiper :banners="banners"></HomeSwiper>
       <HomeRecommendView :recommends="recommends"></HomeRecommendView>
@@ -12,6 +12,7 @@
 
       <GoodsList :goods="showGoods"></GoodsList>
     </Scroll>
+    <back-top @click.native="backclick"/>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
 import Scroll from "components/common/scroll/Scroll";
+import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
@@ -36,7 +38,8 @@ export default {
     HomeRecommendView,
     FeatureView,
     GoodsList,
-    Scroll
+    Scroll,
+    BackTop
   },
   data() {
     return {
@@ -81,6 +84,7 @@ export default {
       });
     },
     // 事件监听相关的方法
+
     tabClick(index) {
       console.log(index);
       switch (index) {
@@ -93,47 +97,51 @@ export default {
         case 2:
           this.currentType = "seil";
       }
+    },
+    backclick() {
+      console.log("点击上箭头回到顶部");
+      this.$refs.scroll.scroll.scrollTo(0,0)
     }
   }
 };
 </script>
 
 <style scoped>
-  #home {
-    padding-top: 44px;
-    height: 100vh;
-    position: relative;
-  }
+#home {
+  padding-top: 44px;
+  height: 100vh;
+  position: relative;
+}
 
-  .home-nav {
-    background-color: var(--color-tint);
-    color: #fff;
+.home-nav {
+  background-color: var(--color-tint);
+  color: #fff;
 
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 9;
-  }
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9;
+}
 
-  .tab-control {
-    position: sticky;
-    top: 44px;
-    z-index: 9;
-  }
+.tab-control {
+  position: sticky;
+  top: 44px;
+  z-index: 9;
+}
 
-  .content {
-    overflow: hidden;
-    position: absolute;
-    top: 44px;
-    bottom: 49px;
-    left: 0;
-    right: 0;
-  }
+.content {
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
+}
 
-  /*.content {*/
-    /*height: calc(100% - 93px);*/
-    /*overflow: hidden;*/
-    /*margin-top: 44px;*/
-  /*}*/
+/*.content {*/
+/*height: calc(100% - 93px);*/
+/*overflow: hidden;*/
+/*margin-top: 44px;*/
+/*}*/
 </style>

@@ -14,12 +14,18 @@ export default {
 
   data() {
     return {
-      scroll: null
+      scroll: null,
+      message:"哈哈"
     };
   },
   mounted() {
     // 1.创建BScroll对象
     this.scroll = new BScroll(this.$refs.wrapper, {});
+  },
+  methods:{
+    scrollTo(x,y,time=300) {
+      this.scroll.scrollTo(x,y,time)
+    }
   }
 };
 </script>
