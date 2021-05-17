@@ -15,11 +15,12 @@ export default {
     probeType: {
       type: Number,
       default: 0
+    },
+
+    pullUpLoad: {
+      type: Boolean,
+      default: false
     }
-    // pullUpLoad:{
-    //   type:Boolean,
-    //   default:false
-    // }
   },
 
   data() {
@@ -49,6 +50,11 @@ export default {
     //   // console.log("上拉加载更多")
     //   this.$emit("pullingUp")
     // })
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+      });
+    }
   },
   methods: {
     scrollTo(x, y, time = 300) {
@@ -56,7 +62,7 @@ export default {
     },
     // 上拉加载更多
     finishPullUp() {
-      this.scroll.finishPullUp();
+      this.scroll && this.scroll.finishPullUp();
     },
     refresh() {
       console.log("-----");

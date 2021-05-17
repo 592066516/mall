@@ -9,8 +9,8 @@
       :probe-type="3"
       :pull-up-load="true"
       @scroll="contentscroll"
+      @pullingUp="loadMore"
     >
-      <!-- @pullingUp="loadMore" -->
       <!-- 轮播图组件 -->
       <HomeSwiper :banners="banners"></HomeSwiper>
       <HomeRecommendView :recommends="recommends"></HomeRecommendView>
@@ -38,7 +38,7 @@ import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import {debounce} from "common/utils"
+import { debounce } from "common/utils";
 
 export default {
   name: "Home",
@@ -81,11 +81,11 @@ export default {
     this.getHomeGoods("seil");
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh,50)
- 
+    const refresh = debounce(this.$refs.scroll.refresh, 50);
+
     // 3.监听item图片加载完成
     this.$bus.$on("itemImageLoad", () => {
-      refresh()
+      refresh();
       // this.$refs.scroll.refresh();
     });
   },
@@ -107,6 +107,11 @@ export default {
     backClick() {
       console.log("点击上箭头回到顶部");
       this.$refs.scroll.scroll.scrollTo(0, 0);
+    },
+
+    loadMore() {
+      console.log("加载更多");
+      this.getHomeGoods(this.currentType);
     },
     // loadMore() {
     //   console.log("上拉加载更多");
@@ -130,7 +135,8 @@ export default {
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
-        // this.$refs.scroll.finishPullUp();
+        // 完成上拉加载更多
+        this.$refs.scroll.finishPullUp();
       });
     }
   }
