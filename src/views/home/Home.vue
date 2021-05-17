@@ -38,6 +38,7 @@ import Scroll from "components/common/scroll/Scroll";
 import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
+import {debounce} from "common/utils"
 
 export default {
   name: "Home",
@@ -78,11 +79,15 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("seil");
+  },
+  mounted() {
+    const refresh = debounce(this.$refs.scroll.refresh,50)
+ 
     // 3.监听item图片加载完成
-    this.$bus.$on("itemImageLoad",()=>{
-      // this.$refs.scroll.scroll.refresh()
-      this.$refs.scroll.refresh()
-    })
+    this.$bus.$on("itemImageLoad", () => {
+      refresh()
+      // this.$refs.scroll.refresh();
+    });
   },
   methods: {
     // 事件监听相关的方法
@@ -111,7 +116,7 @@ export default {
     // },
     contentscroll(position) {
       // y 负值   加括号转为正值
-      this.isShowBackTop = (-position.y) > 2000;
+      this.isShowBackTop = -position.y > 2000;
     },
     // 网络请求相关的方法
     getHomeMultidata() {
