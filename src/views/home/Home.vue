@@ -8,9 +8,9 @@
       ref="scroll"
       :probe-type="3"
       :pull-up-load="true"
-      @pullingUp="loadMore"
       @scroll="contentscroll"
     >
+      <!-- @pullingUp="loadMore" -->
       <!-- 轮播图组件 -->
       <HomeSwiper :banners="banners"></HomeSwiper>
       <HomeRecommendView :recommends="recommends"></HomeRecommendView>
@@ -62,7 +62,7 @@ export default {
         seil: { page: 0, list: [] }
       },
       currentType: "pop",
-      isShowBackTop: true
+      isShowBackTop: false
     };
   },
   // 计算属性
@@ -78,6 +78,11 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("seil");
+    // 3.监听item图片加载完成
+    this.$bus.$on("itemImageLoad",()=>{
+      // this.$refs.scroll.scroll.refresh()
+      this.$refs.scroll.refresh()
+    })
   },
   methods: {
     // 事件监听相关的方法
@@ -98,12 +103,12 @@ export default {
       console.log("点击上箭头回到顶部");
       this.$refs.scroll.scroll.scrollTo(0, 0);
     },
-    loadMore() {
-      console.log("上拉加载更多");
-      this.getHomeGoods(this.currentType);
+    // loadMore() {
+    //   console.log("上拉加载更多");
+    //   this.getHomeGoods(this.currentType);
 
-      this.$refs.scroll.scroll.refresh();
-    },
+    //   this.$refs.scroll.scroll.refresh();
+    // },
     contentscroll(position) {
       // y 负值   加括号转为正值
       this.isShowBackTop = (-position.y) > 2000;
@@ -120,7 +125,7 @@ export default {
       getHomeGoods(type, page).then(res => {
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
-        this.$refs.scroll.finishPullUp();
+        // this.$refs.scroll.finishPullUp();
       });
     }
   }
