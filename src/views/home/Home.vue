@@ -15,7 +15,7 @@
       <HomeSwiper :banners="banners"></HomeSwiper>
       <HomeRecommendView :recommends="recommends"></HomeRecommendView>
       <FeatureView></FeatureView>
-      <TabControl class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></TabControl>
+      <TabControl class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl"></TabControl>
 
       <GoodsList :goods="showGoods"></GoodsList>
     </Scroll>
@@ -63,7 +63,8 @@ export default {
         seil: { page: 0, list: [] }
       },
       currentType: "pop",
-      isShowBackTop: false
+      isShowBackTop: false,
+      tabOffsetTop:0
     };
   },
   // 计算属性
@@ -79,15 +80,23 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("seil");
+ 
+  
   },
   mounted() {
+    
+      // 1.图片加载完成的事件监听
     const refresh = debounce(this.$refs.scroll.refresh, 50);
 
-    // 3.监听item图片加载完成
+    // .监听item图片加载完成
     this.$bus.$on("itemImageLoad", () => {
       refresh();
       // this.$refs.scroll.refresh();
     });
+    // 2.获取tabControl的offsetTop
+    // 所有组件都有一个$el属性，获取组件中的元素
+      this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+      console.log(this.$refs.tabControl.$el.offsetTop)
   },
   methods: {
     // 事件监听相关的方法
@@ -161,11 +170,11 @@ export default {
   z-index: 9;
 }
 
-.tab-control {
+/* .tab-control {
   position: sticky;
   top: 44px;
   z-index: 9;
-}
+} */
 
 .content {
   overflow: hidden;
