@@ -94,7 +94,7 @@ export default {
       // this.$refs.scroll.refresh();
     });
     // 2.获取tabControl的offsetTop
-    // 所有组件都有一个$el属性，获取组件中的元素
+    // 所有的组件都有一个$el属性，获取组件中的元素
       this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
       console.log(this.$refs.tabControl.$el.offsetTop)
   },
