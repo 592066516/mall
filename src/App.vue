@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- keep-alive 防止组件再次渲染  销魂 -->
-    <keep-alive>
+    <keep-alive exclude="Detail">
         <router-view/>
     </keep-alive>
    

@@ -77,7 +77,8 @@ export default {
       currentType: "pop",
       isShowBackTop: false,
       tabOffsetTop: 0,
-      isTabFixed:0,
+      isTabFixed:false,
+      saveY:0
     };
   },
   // 计算属性
@@ -85,6 +86,20 @@ export default {
     showGoods() {
       return this.goods[this.currentType].list;
     }
+  },
+  destroyed(){
+    console.log('组件销毁')
+  },
+  activated(){
+    console.log('进入')
+    this.$refs.scroll.scrollTo(0,this.saveY,0)
+    // 刷新
+    this.$refs.scroll.refresh()
+  },
+  deactivated(){
+    console.log('离开')
+    this.saveY = this.$refs.scroll.getScrollY()
+    console.log(this.saveY)
   },
   created() {
     // 1.请求多个数据
@@ -98,7 +113,7 @@ export default {
     // 1.图片加载完成的事件监听
     const refresh = debounce(this.$refs.scroll.refresh, 50);
 
-    // .监听item图片加载完成
+    // .监听item图片加载完成   goods
     this.$bus.$on("itemImageLoad", () => {
       refresh();
       // this.$refs.scroll.refresh();
