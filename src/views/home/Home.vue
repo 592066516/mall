@@ -3,6 +3,13 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <TabControl
+      :titles="['流行','新款','精选']"
+      @tabClick="tabClick"
+      ref="tabControl1"
+      class="tab-control"
+      v-show="isTabFixed"
+    ></TabControl>
     <Scroll
       class="content"
       ref="scroll"
@@ -12,11 +19,16 @@
       @pullingUp="loadMore"
     >
       <!-- 轮播图组件 -->
-      <HomeSwiper :banners="banners"></HomeSwiper>
+      <HomeSwiper :banners="banners" @swiperImagesLoad="swiperImagesLoad"></HomeSwiper>
       <HomeRecommendView :recommends="recommends"></HomeRecommendView>
       <FeatureView></FeatureView>
-      <TabControl class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl"></TabControl>
 
+      <TabControl
+        :titles="['流行','新款','精选']"
+        @tabClick="tabClick"
+        ref="tabControl"
+      ></TabControl>
+      <!-- :class="{fiexd:isTabFixed}" -->
       <GoodsList :goods="showGoods"></GoodsList>
     </Scroll>
     <back-top @click.native="backClick" v-show="isShowBackTop"/>
@@ -64,7 +76,8 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
-      tabOffsetTop:0
+      tabOffsetTop: 0,
+      isTabFixed:0,
     };
   },
   // 计算属性
@@ -80,12 +93,9 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("seil");
- 
-  
   },
   mounted() {
-    
-      // 1.图片加载完成的事件监听
+    // 1.图片加载完成的事件监听
     const refresh = debounce(this.$refs.scroll.refresh, 50);
 
     // .监听item图片加载完成
@@ -93,10 +103,6 @@ export default {
       refresh();
       // this.$refs.scroll.refresh();
     });
-    // 2.获取tabControl的offsetTop
-    // 所有的组件都有一个$el属性，获取组件中的元素
-      this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
-      console.log(this.$refs.tabControl.$el.offsetTop)
   },
   methods: {
     // 事件监听相关的方法
@@ -111,7 +117,9 @@ export default {
           break;
         case 2:
           this.currentType = "seil";
+          break
       }
+      this.$refs.tabControl1.currentIndex = index
     },
     backClick() {
       console.log("点击上箭头回到顶部");
@@ -128,9 +136,18 @@ export default {
 
     //   this.$refs.scroll.scroll.refresh();
     // },
+    swiperImagesLoad() {
+      // 2.获取tabControl的offsetTop
+      // 所有的组件都有一个$el属性，获取组件中的元素
+      this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop;
+      console.log(this.$refs.tabControl.$el.offsetTop);
+    },
     contentscroll(position) {
+      // 1.判断BackTop是否显示
       // y 负值   加括号转为正值
-      this.isShowBackTop = -position.y > 2000;
+      this.isShowBackTop = -position.y > 1000;
+      // 2.决定tabControl是否吸顶(position:fixed)
+      this.isTabFixed = -position.y > this.tabOffsetTop;
     },
     // 网络请求相关的方法
     getHomeMultidata() {
@@ -184,7 +201,15 @@ export default {
   left: 0;
   right: 0;
 }
-
+.tab-control {
+  position: relative;
+}
+/* .fiexd {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 44px;
+} */
 /*.content {*/
 /*height: calc(100% - 93px);*/
 /*overflow: hidden;*/

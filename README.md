@@ -35,3 +35,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 1.3 let声明的是变量，可以被重新赋值；const声明的是常量，不能被重新赋值，并且定义时必须赋值
 1.4 var可以重复定义相同名字的变量，之后定义的覆盖之前定义的，但是let、const不可以
 1.5 var是全部变量；let、const都是局部变量 -->
+
+
+
+<!-- tabcontrol的吸顶效果 -->
