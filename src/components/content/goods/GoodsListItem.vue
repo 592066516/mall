@@ -26,6 +26,8 @@ export default {
       this.$bus.$emit("itemImageLoad");
     },
     itemClick() {
+      console.log(this.goodsItem.iid);
+      
       // 跳转到详情页   传id
       console.log("跳转到详情页");
       this.$router.push("/detail/" + this.goodsItem.iid)

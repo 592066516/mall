@@ -91,13 +91,14 @@ export default {
     console.log('组件销毁')
   },
   activated(){
-    console.log('进入')
+    console.log('进入,设置位置')
     this.$refs.scroll.scrollTo(0,this.saveY,0)
     // 刷新
     this.$refs.scroll.refresh()
   },
   deactivated(){
-    console.log('离开')
+    console.log("离开,记录位置")
+    //  this.saveY = this.$refs._scroll.y
     this.saveY = this.$refs.scroll.getScrollY()
     console.log(this.saveY)
   },
@@ -185,49 +186,42 @@ export default {
 </script>
 
 <style scoped>
-#home {
-  padding-top: 44px;
-  height: 100vh;
-  position: relative;
-}
+ #home {
+    /*padding-top: 44px;*/
+    height: 100vh;
+    position: relative;
+  }
 
-.home-nav {
-  background-color: var(--color-tint);
-  color: #fff;
+  .home-nav {
+    background-color: var(--color-tint);
+    color: #fff;
 
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 9;
-}
+    /*在使用浏览器原生滚动时, 为了让导航不跟随一起滚动*/
+    /*position: fixed;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 0;*/
+    /*z-index: 9;*/
+  }
 
-/* .tab-control {
-  position: sticky;
-  top: 44px;
-  z-index: 9;
-} */
+  .content {
+    overflow: hidden;
 
-.content {
-  overflow: hidden;
-  position: absolute;
-  top: 44px;
-  bottom: 49px;
-  left: 0;
-  right: 0;
-}
-.tab-control {
-  position: relative;
-}
-/* .fiexd {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 44px;
-} */
-/*.content {*/
-/*height: calc(100% - 93px);*/
-/*overflow: hidden;*/
-/*margin-top: 44px;*/
-/*}*/
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+  }
+
+  .tab-control {
+    position: relative;
+    z-index: 9;
+  }
+
+  /*.content {*/
+    /*height: calc(100% - 93px);*/
+    /*overflow: hidden;*/
+    /*margin-top: 44px;*/
+  /*}*/
 </style>
