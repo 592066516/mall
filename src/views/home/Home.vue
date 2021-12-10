@@ -11,117 +11,117 @@
     <home-swiper :banners="banners"></home-swiper>
     <recommend-view :recommends="recommends"></recommend-view>
     <feautre-view></feautre-view>
+    <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
 
-
-    <ul>
-      <li>
-        列表1
-        列表2
-        列表3
-        列表4
-        列表5
-        列表6
-        列表7
-        列表8
-        列表9
-        列表10
-        列表11
-        列表12
-        列表13
-        列表14
-        列表15
-        列表16
-        列表17
-        列表18
-        列表19
-        列表20
-        列表21
-        列表22
-        列表23
-        列表24
-        列表25
-        列表26
-        列表27
-        列表28
-        列表29
-        列表30
-        列表31
-        列表32
-        列表33
-        列表34
-        列表35
-        列表36
-        列表37
-        列表38
-        列表39
-        列表40
-        列表41
-        列表42
-        列表43
-        列表44
-        列表45
-        列表46
-        列表47
-        列表48
-        列表49
-        列表50
-        列表51
-        列表52
-        列表53
-        列表54
-        列表55
-        列表56
-        列表57
-        列表58
-        列表59
-        列表60
-        列表61
-        列表62
-        列表63
-        列表64
-        列表65
-        列表66
-        列表67
-        列表68
-        列表69
-        列表70
-        列表71
-        列表72
-        列表73
-        列表74
-        列表75
-        列表76
-        列表77
-        列表78
-        列表79
-        列表80
-        列表81
-        列表82
-        列表83
-        列表84
-        列表85
-        列表86
-        列表87
-        列表88
-        列表89
-        列表90
-        列表91
-        列表92
-        列表93
-        列表94
-        列表95
-        列表96
-        列表97
-        列表98
-        列表99
-        列表100
-      </li>
-    </ul>
+   <ul>
+     <li>1列表</li>
+     <li>2列表</li>
+     <li>3列表</li>
+     <li>4列表</li>
+     <li>5列表</li>
+     <li>6列表</li>
+     <li>7列表</li>
+     <li>8列表</li>
+     <li>9列表</li>
+     <li>10列表</li>
+     <li>11列表</li>
+     <li>12列表</li>
+     <li>13列表</li>
+     <li>14列表</li>
+     <li>15列表</li>
+     <li>16列表</li>
+     <li>17列表</li>
+     <li>18列表</li>
+     <li>19列表</li>
+     <li>20列表</li>
+     <li>21列表</li>
+     <li>22列表</li>
+     <li>23列表</li>
+     <li>24列表</li>
+     <li>25列表</li>
+     <li>26列表</li>
+     <li>27列表</li>
+     <li>28列表</li>
+     <li>29列表</li>
+     <li>30列表</li>
+     <li>31列表</li>
+     <li>32列表</li>
+     <li>33列表</li>
+     <li>34列表</li>
+     <li>35列表</li>
+     <li>36列表</li>
+     <li>37列表</li>
+     <li>38列表</li>
+     <li>39列表</li>
+     <li>40列表</li>
+     <li>41列表</li>
+     <li>42列表</li>
+     <li>43列表</li>
+     <li>44列表</li>
+     <li>45列表</li>
+     <li>46列表</li>
+     <li>47列表</li>
+     <li>48列表</li>
+     <li>49列表</li>
+     <li>50列表</li>
+     <li>51列表</li>
+     <li>52列表</li>
+     <li>53列表</li>
+     <li>54列表</li>
+     <li>55列表</li>
+     <li>56列表</li>
+     <li>57列表</li>
+     <li>58列表</li>
+     <li>59列表</li>
+     <li>60列表</li>
+     <li>61列表</li>
+     <li>62列表</li>
+     <li>63列表</li>
+     <li>64列表</li>
+     <li>65列表</li>
+     <li>66列表</li>
+     <li>67列表</li>
+     <li>68列表</li>
+     <li>69列表</li>
+     <li>70列表</li>
+     <li>71列表</li>
+     <li>72列表</li>
+     <li>73列表</li>
+     <li>74列表</li>
+     <li>75列表</li>
+     <li>76列表</li>
+     <li>77列表</li>
+     <li>78列表</li>
+     <li>79列表</li>
+     <li>80列表</li>
+     <li>81列表</li>
+     <li>82列表</li>
+     <li>83列表</li>
+     <li>84列表</li>
+     <li>85列表</li>
+     <li>86列表</li>
+     <li>87列表</li>
+     <li>88列表</li>
+     <li>89列表</li>
+     <li>90列表</li>
+     <li>91列表</li>
+     <li>92列表</li>
+     <li>93列表</li>
+     <li>94列表</li>
+     <li>95列表</li>
+     <li>96列表</li>
+     <li>97列表</li>
+     <li>98列表</li>
+     <li>99列表</li>
+     <li>100列表</li>
+   </ul>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
+import TabControl from "components/content/tabControl/TabControl";
+
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeautreView from "./childComps/FeautreView";
@@ -132,6 +132,8 @@ export default {
   name: "Home",
   components: {
     NavBar,
+    TabControl,
+
     HomeSwiper,
     RecommendView,
     FeautreView
@@ -167,5 +169,9 @@ export default {
   right: 0;
   bottom: 0;
   z-index: 9;
+}
+.tab-control {
+  position: sticky;
+  top: 44px;
 }
 </style>
