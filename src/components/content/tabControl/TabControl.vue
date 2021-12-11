@@ -27,10 +27,11 @@ export default {
       currentIndex: 0
     };
   },
-  methods:{
-      itemClick(index){
-          return this.currentIndex =index
-      }
+  methods: {
+    itemClick(index) {
+      this.currentIndex = index;
+      this.$emit("tabClick", index);
+    }
   }
 };
 </script>
