@@ -12,7 +12,7 @@
     <recommend-view :recommends="recommends"></recommend-view>
     <feautre-view></feautre-view>
     <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
-
+    <goods-list :goods="goods['pop'].list"></goods-list>
     <ul>
       <li>1列表</li>
       <li>2列表</li>
@@ -121,19 +121,20 @@
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
+import GoodsList from "components/content/goods/GoodsList";
 
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeautreView from "./childComps/FeautreView";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-// import { connect } from 'net';
 
 export default {
   name: "Home",
   components: {
     NavBar,
     TabControl,
+    GoodsList,
 
     HomeSwiper,
     RecommendView,
@@ -153,8 +154,8 @@ export default {
   created() {
     this.getHomeMultidata();
     this.getHomeGoods("pop");
-    // this.getHomeGoods("new");
-    // this.getHomeGoods("sell");
+    this.getHomeGoods("new");
+    this.getHomeGoods("sell");
   },
   methods: {
     getHomeMultidata() {
@@ -168,9 +169,8 @@ export default {
     },
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
-
       getHomeGoods(type, page).then(res => {
-        console.log(res.data.list);
+        this.goods[type].list.push(...res.data.list);
       });
     }
   }
@@ -194,5 +194,6 @@ export default {
 .tab-control {
   position: sticky;
   top: 44px;
+  z-index: 9;
 }
 </style>
